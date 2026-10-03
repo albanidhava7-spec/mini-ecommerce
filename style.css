@@ -446,3 +446,25 @@ footer {
 
     font-weight: bold;
 }
+
+/* MOBILE CART */
+
+@media (max-width: 600px) {
+
+    .cart-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .cart-controls {
+        justify-content: flex-end;
+        width: 100%;
+    }
+
+    .cart-controls button {
+        width: 40px;
+        height: 40px;
+    }
+
+}
