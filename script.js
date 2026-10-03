@@ -3,11 +3,15 @@
 let cart = [];
 
 const cartCount = document.getElementById("cart-count");
+const cartButton = document.getElementById("cart-button");
+
+const cartModal = document.getElementById("cart-modal");
+const closeCart = document.getElementById("close-cart");
+
+
+// ADD TO CART
 
 const addButtons = document.querySelectorAll(".add-cart");
-
-
-// ADD PRODUCT TO CART
 
 addButtons.forEach(function (button) {
 
@@ -20,5 +24,23 @@ addButtons.forEach(function (button) {
         alert("Product added to cart! 🛒");
 
     });
+
+});
+
+
+// OPEN CART
+
+cartButton.addEventListener("click", function () {
+
+    cartModal.style.display = "flex";
+
+});
+
+
+// CLOSE CART
+
+closeCart.addEventListener("click", function () {
+
+    cartModal.style.display = "none";
 
 });
