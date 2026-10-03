@@ -29,15 +29,27 @@ addButtons.forEach(function (button) {
         const price = Number(priceText.replace("$", ""));
 
 
-        cart.push({
-            name: name,
-            price: price
+        const existingProduct = cart.find(function (product) {
+            return product.name === name;
         });
 
 
-        updateCart();
+        if (existingProduct) {
 
-        alert(name + " added to cart! 🛒");
+            existingProduct.quantity++;
+
+        } else {
+
+            cart.push({
+                name: name,
+                price: price,
+                quantity: 1
+            });
+
+        }
+
+
+        updateCart();
 
     });
 
@@ -48,11 +60,10 @@ addButtons.forEach(function (button) {
 
 function updateCart() {
 
-    cartCount.textContent = cart.length;
+    let totalItems = 0;
+    let totalPrice = 0;
 
     cartItems.innerHTML = "";
-
-    let total = 0;
 
 
     if (cart.length === 0) {
@@ -68,7 +79,9 @@ function updateCart() {
 
     cart.forEach(function (product, index) {
 
-        total += product.price;
+        totalItems += product.quantity;
+
+        totalPrice += product.price * product.quantity;
 
 
         const item = document.createElement("div");
@@ -77,14 +90,31 @@ function updateCart() {
 
 
         item.innerHTML = `
-            <div>
+            <div class="cart-product">
+
                 <strong>${product.name}</strong>
-                <p>$${product.price}</p>
+
+                <p>$${product.price} × ${product.quantity}</p>
+
             </div>
 
-            <button onclick="removeFromCart(${index})">
-                🗑️
-            </button>
+            <div class="cart-controls">
+
+                <button onclick="decreaseQuantity(${index})">
+                    −
+                </button>
+
+                <span>${product.quantity}</span>
+
+                <button onclick="increaseQuantity(${index})">
+                    +
+                </button>
+
+                <button onclick="removeFromCart(${index})">
+                    🗑️
+                </button>
+
+            </div>
         `;
 
 
@@ -93,7 +123,37 @@ function updateCart() {
     });
 
 
-    cartTotal.textContent = "$" + total;
+    cartCount.textContent = totalItems;
+
+    cartTotal.textContent = "$" + totalPrice;
+
+}
+
+
+// INCREASE QUANTITY
+
+function increaseQuantity(index) {
+
+    cart[index].quantity++;
+
+    updateCart();
+
+}
+
+
+// DECREASE QUANTITY
+
+function decreaseQuantity(index) {
+
+    cart[index].quantity--;
+
+    if (cart[index].quantity <= 0) {
+
+        cart.splice(index, 1);
+
+    }
+
+    updateCart();
 
 }
 
