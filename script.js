@@ -185,3 +185,23 @@ closeCart.addEventListener("click", function () {
     cartModal.style.display = "none";
 
 });
+
+
+// CHECKOUT
+
+const checkoutButton = document.getElementById("checkout-button");
+const checkoutMessage = document.getElementById("checkout-message");
+
+checkoutButton.addEventListener("click", function () {
+
+    if (cart.length === 0) {
+
+        checkoutMessage.textContent = "Your cart is empty.";
+
+        return;
+    }
+
+    checkoutMessage.textContent =
+        "Checkout successful! 🎉 Thank you for shopping at NOVA STORE.";
+
+});
